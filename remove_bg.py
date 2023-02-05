@@ -51,6 +51,10 @@ class BackgroundRemoval:
         background = np.zeros([*image_size], dtype=np.uint8)
         background[:, :, ] = color
 
+        #save bg_img
+        # bg_img = Image.fromarray(np.uint8(background))
+        # bg_img.save('bg_img.png')
+        #output : imagw with all pixels black
         return background
 
     def gen_alpha(self, img: np.ndarray) -> np.ndarray:
@@ -67,7 +71,6 @@ class BackgroundRemoval:
         matte = matte.cpu().detach().numpy()
 
         alpha = np.stack((matte,) * 3, axis=-1).astype(float)
-
         return alpha
 
     def remove_background(self, img: Image,
@@ -80,6 +83,10 @@ class BackgroundRemoval:
 
         img = np.array(img)
 
+        #stylized image
+        stylized_img = Image.open('stylized.jpg')
+        stylized_img = np.array(stylized_img)
+        
         if alpha is None:
             alpha = self.gen_alpha(img)
 
@@ -87,16 +94,22 @@ class BackgroundRemoval:
             fg_color = self.to_rgb(fg_color)
             overlay = self.gen_background(img.shape, color=fg_color)
             img = (img * (1 - fg_fac)) + (overlay * fg_fac)
+            # img = (img * (fg_fac)) + (overlay * (1-fg_fac))
 
         bg_color = self.to_rgb(bg_color)
         background = self.gen_background(img.shape, color=bg_color)
 
         if bg_texture:
             bg_texture = np.array(bg_texture.resize(img.shape[0:2][::-1]))
-            background = (background * (1 - bt_fac) + bg_texture * bt_fac)
+            # background = (background * (1 - bt_fac) + bg_texture * bt_fac)
+            background = (background * (bt_fac) + bg_texture * (1-bt_fac))
 
-        foreground = img * alpha
-        background = background * (1 - alpha)
+        # foreground = img * alpha
+        # background = background * (1 - alpha)
+
+        foreground = img * (1-alpha)
+        # background = background * (alpha)
+        background = stylized_img * (alpha)
 
         result = foreground + background
 
@@ -183,4 +196,5 @@ if __name__ == "__main__":
     )
 
     result_img.save(args.output)
+    # bg_img.save('bg_img.png')
     print(f"[*] Output file saved to: {args.output}")
