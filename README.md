@@ -6,5 +6,9 @@ Algorithm
 2. Feature Extraction of Style image (pattern) and content image (facial features) are done using FaceNet, FaceMesh ang VGG-19 architectures.
 3. Finally, features are merged with segmented image to keep background intact and stylized the featured part.
 
-![Input Image](https://github.com/pratayusha/NeuralStyleTransfer/blob/b1/elon_musk_portrait.jpeg?raw=true)
+Helpful references:
+http://cs231n.stanford.edu/reports/2017/pdfs/416.pdf
+https://www.fritz.ai/style-transfer/
+
+
 
