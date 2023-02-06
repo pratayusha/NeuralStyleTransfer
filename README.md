@@ -7,8 +7,10 @@ Algorithm
 3. Finally, features are merged with segmented image to keep background intact and stylized the featured part.
 
 Helpful references:
-http://cs231n.stanford.edu/reports/2017/pdfs/416.pdf
-https://www.fritz.ai/style-transfer/
+-> http://cs231n.stanford.edu/reports/2017/pdfs/416.pdf
+-> https://www.fritz.ai/style-transfer/
+-> https://www.sciencedirect.com/science/article/abs/pii/S0045790620305103
+-> https://www.linkedin.com/pulse/modnet-remove-background-real-time-demo-code-included-sobh-phd/
 
 
 
