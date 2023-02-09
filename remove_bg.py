@@ -107,9 +107,9 @@ class BackgroundRemoval:
         # foreground = img * alpha
         # background = background * (1 - alpha)
 
-        foreground = img * (1-alpha)
+        foreground = stylized_img * (1-alpha)
         # background = background * (alpha)
-        background = stylized_img * (alpha)
+        background = img * (alpha)
 
         result = foreground + background
 
